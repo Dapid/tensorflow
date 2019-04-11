@@ -20,9 +20,8 @@ limitations under the License.
 
 #include "tensorflow/core/lib/strings/strcat.h"
 
-namespace perftools {
-namespace gputools {
-namespace cuda {
+namespace stream_executor {
+namespace gpu {
 
 struct CudnnVersion {
   CudnnVersion() = default;
@@ -45,8 +44,7 @@ struct CudnnVersion {
 bool IsSourceCompatibleWithCudnnLibrary(CudnnVersion source_version,
                                         CudnnVersion loaded_version);
 
-}  // namespace cuda
-}  // namespace gputools
-}  // namespace perftools
+}  // namespace gpu
+}  // namespace stream_executor
 
 #endif  // TENSORFLOW_STREAM_EXECUTOR_CUDA_CUDNN_VERSION_H_

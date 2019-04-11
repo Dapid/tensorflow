@@ -17,9 +17,8 @@ limitations under the License.
 
 #include "tensorflow/core/platform/test.h"
 
-namespace perftools {
-namespace gputools {
-namespace cuda {
+namespace stream_executor {
+namespace gpu {
 namespace {
 
 TEST(CuDNNVersion, ToString) {
@@ -69,6 +68,5 @@ TEST(IsSourceCompatibleWithCudnnLibraryTest, Basic) {
 }
 
 }  // namespace
-}  // namespace cuda
-}  // namespace gputools
-}  // namespace perftools
+}  // namespace gpu
+}  // namespace stream_executor

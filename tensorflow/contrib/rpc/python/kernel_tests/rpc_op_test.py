@@ -35,6 +35,7 @@ class RpcOpTest(test.TestCase, rpc_op_test_base.RpcOpTestBase):
   _protocol = 'grpc'
 
   invalid_method_string = 'Method not found'
+  connect_failed_string = 'Connect Failed'
 
   def __init__(self, methodName='runTest'):  # pylint: disable=invalid-name
     super(RpcOpTest, self).__init__(methodName)
@@ -60,10 +61,7 @@ class RpcOpTest(test.TestCase, rpc_op_test_base.RpcOpTestBase):
     self._server = server
 
   def tearDown(self):
-    # TODO(ebrevdo): Figure out why this sometimes times out.
-    #    self._service.ExitLoop()
-    #    self._service_thread.join()
-    # self._server.stop()
+    self._server.stop(grace=None)
     super(RpcOpTest, self).tearDown()
 
 

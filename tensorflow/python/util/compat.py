@@ -17,10 +17,6 @@
 ## Conversion routines
 In addition to the functions below, `as_str` converts an object to a `str`.
 
-@@as_bytes
-@@as_text
-@@as_str_any
-@@path_to_str
 
 ## Types
 The compatibility module also provides the following types:
@@ -40,8 +36,6 @@ import numbers as _numbers
 import numpy as _np
 import six as _six
 
-from tensorflow.python.util.all_util import remove_undocumented
-from tensorflow.python.util.tf_export import tf_export
 from tensorflow.python.util.tf_export import tf_export
 
 
@@ -124,6 +118,27 @@ def path_to_str(path):
 
   Returns:
     A `str` object.
+
+  Usage:
+    In case a simplified `str` version of the path is needed from an
+    `os.PathLike` object
+
+  Examples:
+  ```python3
+  >>> tf.compat.path_to_str('C:\XYZ\tensorflow\./.././tensorflow')
+  'C:\\XYZ\\tensorflow\\./.././tensorflow' # Windows OS
+  >>> tf.compat.path_to_str(Path('C:\XYZ\tensorflow\./.././tensorflow'))
+  'C:\\XYZ\\tensorflow\\..\\tensorflow' # Windows OS
+  >>> tf.compat.path_to_str(Path('./corpus'))
+  'corpus' # Linux OS
+  >>> tf.compat.path_to_str('./.././Corpus')
+  './.././Corpus' # Linux OS
+  >>> tf.compat.path_to_str(Path('./.././Corpus'))
+  '../Corpus' # Linux OS
+  >>> tf.compat.path_to_str(Path('./..////../'))
+  '../..' # Linux OS
+
+  ```
   """
   if hasattr(path, '__fspath__'):
     path = as_str_any(path.__fspath__())
@@ -143,13 +158,3 @@ tf_export('compat.complex_types').export_constant(__name__, 'complex_types')
 bytes_or_text_types = (bytes, _six.text_type)
 tf_export('compat.bytes_or_text_types').export_constant(__name__,
                                                         'bytes_or_text_types')
-
-_allowed_symbols = [
-    'as_str',
-    'bytes_or_text_types',
-    'complex_types',
-    'integral_types',
-    'real_types',
-]
-
-remove_undocumented(__name__, _allowed_symbols)
